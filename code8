@@ -1,0 +1,25 @@
+import requests
+
+def get_github_profile(username):
+    url = f"https://api.github.com/users/{username}"
+    response = requests.get(url)
+    if response.status_code == 200:
+        return response.json()
+    else:
+        return None
+
+def display_profile_info(profile):
+    if profile:
+        print(f"Username: {profile['login']}")
+        print(f"Name: {profile['name']}")
+        print(f"Bio: {profile['bio']}")
+        print(f"Public Repositories: {profile['public_repos']}")
+        print(f"Followers: {profile['followers']}")
+        print(f"Following: {profile['following']}")
+    else:
+        print("User not found.")
+
+if __name__ == "__main__":
+    username = input("Enter your GitHub username: ")
+    profile = get_github_profile(username)
+    display_profile_info(profile)
